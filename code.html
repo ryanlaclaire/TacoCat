@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project By Ryan LaClaire</title>
+    <title>TACO CAT: A Coding Project By Ryan LaClaire</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +23,7 @@
     <!-- ==== NAV SECTION ===-->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="/img/LaClaireMark.svg" class="d-inline-block align-text-top" alt="LaClaire Logo" width="30" height="30"> APP Name</a>
+            <a class="navbar-brand" href="index.html"><img src="/img/LaClaireMark.svg" class="d-inline-block align-text-top" alt="LaClaire Logo" width="30" height="30"> TACO CAT</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,7 +40,7 @@
                         <a class="nav-link active" href="code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://github.com/ryanlaclaire/">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/ryanlaclaire/TacoCat">Git Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://ryanlaclaire-portfolio.netlify.app/">About</a>
@@ -52,22 +52,76 @@
      <!-- ==== MAIN SECTION ===-->
     <main class="flex-shrink-0">
        <div class="container py-4 px-4 mt-5">
-           <h2 class="border-2 border-bottom border-dark">The Code for App Name</h2>
+           <h2 class="border-2 border-bottom border-dark">The Code for TACO CAT</h2>
         <div class="row row-cols-1 row-cols-lg-2">
             <div class="col col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-javascript">
-                        //Call Hello World
-                        function helloWorld() {
-                            alert("Hello World");
+                        //Get user input
+                        //Controller Function
+                        function getValue() {
+
+                            //get user string from the page
+                            document.getElementById("alert").classList.add("invisible");
+
+                            let userString = document.getElementById("userString").value;
+                            
+                            //check for palindrome
+                            let returnObj = checkForPalindrome(userString);
+                            
+                            //display the message to the screen
+                            displayMessage(returnObj);
+                        }
+
+                        //Reverse text in array
+                        //Logic Function
+                        function checkForPalindrome(userString) {
+
+                            //convert to lowercase
+                            userString = userString.toLowerCase();
+
+                            //remove spaces and special characters
+                            let regex = /[^a-z0-9]/gi;
+                            userString = userString.replace(regex, "");
+
+                            //let revString = userString.split("").reverse().join("");
+                            let revString = [];
+                            let returnObj = {};
+
+                            for (let i = userString.length - 1; i >= 0; i--) {
+                                revString += userString[i];
+                            }
+
+                            if ( revString == userString) {
+                                returnObj.msg = "Well Done! You've entered a Palindrome!";
+                            }else {
+                                returnObj.msg = "Sorry! You did not enter a Palindrome!";
+                            }
+
+                            returnObj.reversed = revString;
+
+                            return returnObj;
+                        }
+
+                        //Display Message on page
+                        function displayMessage(returnObj) {
+
+                            document.getElementById("alertHeader").innerHTML = returnObj.msg;
+                            document.getElementById("msg").innerHTML = `Your phrase reversed is: ${returnObj.reversed}`;
+                            document.getElementById("alert").classList.remove("invisible");
+
                         }
                     </code> 
                 </pre>
             </div>
             <div class="col col-lg-4">
-                <p>The Code is structured in one function.</p>
-                <h5>Hello World</h5>
-                <p>Hello World is a function that displays an alert with a message of "Hello World".</p>
+                <p>The Code is structured into three functions.</p>
+                <h5>Get Value</h5>
+                <p>Get Value is the controller function which takes in the User Input. It sends it off to the Check For Palindrome function and once that function is complete, it sends the Object on to the Display Message function.</p>
+                <h5>Check For Palindrome</h5>
+                <p>Check For Palindrome is the primary work function which takes in the User Input and does several things to it. First off it makes sure the string is lowercase to set things equal for a compare. Next it removes spaces and special characters using regex. Then it revserses the string and compares it to the cleaned up string. It returns one of two messages depending on whether or not they are equal. It sets the message to an object property known as msg. Then it returns the object back to Get Value.</p>
+                <h5>Display Message</h5>
+                <p>Display Messaage takes in the Object and grabs the msg property and sends to the DOM to let the User know if their phrase was a Paindrome or not. It further displays the reversed string for the to see.</p>
             </div>
         </div>
        </div>
